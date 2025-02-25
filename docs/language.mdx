@@ -1,0 +1,112 @@
+---
+sidebar_position: 1
+---
+
+# Language
+
+## Symbol
+
+A symbol is an atomic unit of the language. We usually just use characters starting from $a$ or use numbers.
+
+## Sentence
+
+A sentence is a sequence of symbols. We usually use $s, u, v, w, x, y, z$ as notation for a sentence. That is, for example, $u=aaaa$.
+
+## Language
+
+Language is a set of sentences. Usually noted as $\mathcal{L}$.
+
+## At Operator
+
+We can use $n@w$ to take the $n$ th symbol of sentence $w$, starting from zero. For example,
+
+$$
+0@(abc) = a
+$$
+
+## Vocabulary
+
+A vocabulary is a set of symbols. Usually noted as $\mathcal{V}$.
+
+## Length of the Sentence
+
+The length of a sentence is how many symbols it has. Noted as $|v|$ for sentence $v$.
+
+## Empty Sentence
+
+An empty sentence is a sentence with no words. It is unique and often noted as $\lambda$, $|\lambda| = 0$.
+
+## Concatenation
+
+The concatenation of two sentences $u$ and $v$ is denoted as $uv$.
+
+$$
+n@uv = \begin{cases}
+n@u & n < |u| \\
+n-|u|@v & n \geq |u|
+\end{cases}
+$$
+
+## Prefix and Suffix
+
+$s$ is a suffix of $y$ if and only if there exists such $x$ that, $xs=y$.
+
+$s$ is a prefix of $y$ if and only if there exists such $x$ that, $sx=y$.
+
+## Substring
+
+$s$ is a substring of $y$ if and only if there exists such $x$ and $z$ that, $xsz=y$.
+
+## Sentence with Single Symbol
+
+If a sentence has only one symbol, we can use the symbol to denote the sentence. For example, $a$ can be a sentence with one symbol $a$.
+
+## Repeat
+
+If a sentence $u$ is $n$ times concatenation to $v$, then we note, $u = v^n$.
+
+We define, $u^0 = \lambda$.
+
+## Reverse
+
+$w^R$ is the reverse of sentence $w$, where $|w^R| = |w|$, but $i@w^R = (n-j-1)@w$
+
+## Concatenation with Vocabulary
+
+If we concatenate a sentence $w$ to a vocabulary $\mathcal{V}$, it yields a language set.
+
+$$
+w\mathcal{V} = \{ ws | s \in \mathcal{V} \}
+$$
+
+## Language Concatenation
+
+The concatenation of two language $\mathcal{L}_1$ and $\mathcal{L}_2$ yields a new language, such that every sentence is a concatenation of a sentence in $\mathcal{L}_1$ and a sentence in $\mathcal{L}_2$.
+
+Similarly, if the concatenation happens multiple times, we note it as exponentiation.
+
+## Vocabulary as Language
+
+We define,
+
+$$
+\lambda \mathcal{V}
+$$
+
+As the corresponding language set of a vocabulary. We still note this language $\mathcal{V}$.
+
+## Closure
+
+The star closure of a language results in all the possible sentence that can be built by concatenation.
+
+That is,
+
+$$
+\mathcal{L}^* = \bigcup_{n=0}^{\infty} \mathcal{L}^n
+$$
+
+For positive closure, it removes the empty sentence.
+
+$$
+\mathcal{L}^+ = \bigcup_{n=1}^{\infty} \mathcal{L}^n
+$$

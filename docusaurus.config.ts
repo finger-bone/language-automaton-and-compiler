@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex';
 
 const repo = "language-automa-and-compiler"
 const ghName = "finger-bone"
-const title = "my site"
+const title = "Language Automa and Compiler"
 
 const config: Config = {
   title: title,
