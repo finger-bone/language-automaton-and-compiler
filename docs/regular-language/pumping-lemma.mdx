@@ -1,0 +1,71 @@
+---
+sidebar_position: 6
+---
+
+# Pumping Lemma of Regular Languages
+
+The pumping lemma for regular languages is a lemma that describes an essential property of all regular languages. Informally, it says that all sufficiently long strings in a regular language may be pumped—that is, have a middle section of the string repeated an arbitrary number of times—to produce a new string that is also part of the language.
+
+In the following passage, we only talk about infinite languages. For finite language is guaranteed to be regular language.
+
+## Pumping Lemma of Regular Languages and Its Proof
+
+Pumping Lemma states that, if $\mathcal{L}$ is an infinite regular language, there must exists a pumping length $p \geq 1$ ($p$ is only dependent on the language).
+
+If an integer $p$ is a pumping length. For any $w \in \mathcal{L}$ and $|w| \geq p$, there must exists a way of dividing $w$ into,
+
+$$
+w = xyz
+$$
+
+Where, $|y| \geq 1$ and $|xy| \leq p$.
+
+And $\forall n \geq 0$, $xy^nz \in \mathcal{L}$.
+
+This can be proven with regular expression- and is very simple.
+
+Because $\mathcal{L}$ is infinite, there must exist at least one star, that is,
+
+$$
+R = r_1r_2^*r_3
+$$
+
+Where $r_2$ is not empty.
+
+Thus, if $x$ matches $r_1$, $z$ matches $r_3$, $y$ matches $r_2$, we will have the pumping lemma.
+
+## Example
+
+We usually use pumping lemma to prove a language is not regular.
+
+For example, we would like to prove,
+
+$$
+0^n1^n
+$$
+
+Is not a regular language.
+
+We assume there exists a pumping length $p$, and assume that this is a regular language.
+
+Pumping lemma tells us that for every string longer than pumping length, there must exists a pumping decomposition. We can take,
+
+$$
+w = 0^p1^p
+$$
+
+We know that a pumping decomposition exists, but we don't know exactly how- it's okay, we can assume,
+
+$$
+w = xyz
+$$
+
+No matter how $w$ decomposes, there are only there cases for $y$.
+
+- $y$ contains only $1$, then obviously, $xy^2z \not \in \mathcal{L}$, because there will be more $1$ than $0$.
+- $y$ contains only $0$, then obviously, $xy^2z \not \in \mathcal{L}$, because there will be more $0$ than $1$.
+- $y$ contains $0$ and $1$, then $y = 0^{a}1^{b}$, then $xy^2z=0^{n}1^b0^a1^{n} \not \in \mathcal{L}$
+
+Thus, there doesn't exists such a decomposition.
+
+In conclusion, $0^n1^n$ is not a regular language.
