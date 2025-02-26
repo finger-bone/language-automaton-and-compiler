@@ -280,29 +280,9 @@ There exists circular dependency. We use the most optimistic choice- as we said 
 | G* |❌ |✅ | | |
 | H* |❌ |✅ |✅ | |
 
-## Correspondence between DFA and Regular Grammar
+This algorithm is an application of Hopcroft–Karp algorithm.
 
-### From Regular Grammar to DFA
-
-For a regular grammer, it takes either of the forms,
-
-$$
-A \rightarrow aB
-$$
-
-Or,
-
-$$
-A \rightarrow a
-$$
-
-If it is the first case. Then we create two states $A$ and $B$ if there doesn't exist one. Then adding an edge with label $a$ from $A$ to $B$.
-
-If it is the second case, we create a state $A$ and an special accept state $qa$ if there doesn't exist one. Then adding an edge with label $a$ from $A$ to $qa$.
-
-Obviously, by constructing the automa, we can test all strings in the given regular language.
-
-### From DFA to Regular Grammar
+## The Grammar of DFA
 
 For a DFA, we can create a regular grammar that is equivalent to the DFA.
 
@@ -325,3 +305,13 @@ q_i \rightarrow a
 $$
 
 So that using the regular grammar, we can generate the language of a DFA.
+
+Please note that, by this conversion,
+
+$$
+A \rightarrow aB
+$$
+
+Can only exists one such rule. That is to say, $A \rightarrow aB | aC$ is not allowed. So the grammar of DFA is actually a more restricted version of regular grammar.
+
+NFA is actually directly corresponding to the regular grammar.
