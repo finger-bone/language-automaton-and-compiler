@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# Deterministic Finite Automaton
+# Deterministic Finite automatonton
 
-Deterministic Finite Automa (DFA) is a machine that can recognize a regular language based on its grammar.
+Deterministic Finite automaton (DFA) is a machine that can recognize a regular language based on its grammar.
 
 ## Components of DFA
 
@@ -18,7 +18,7 @@ DFA has the following components,
 - A start state $qs$
 - An accept state set $\mathcal{F} = \{q_f, q_{f1}, q_{f2}, \cdots, q_{fn}\}$
 
-An automa can take a symbol and transit to another state based on the transition function. That is, if $w=aw'$, then we define,
+An automaton can take a symbol and transit to another state based on the transition function. That is, if $w=aw'$, then we define,
 
 $$
 \mathcal{T}(q, w) = \mathcal{T}(\mathcal{T}(q, a), w')
@@ -36,7 +36,7 @@ $$
 \mathcal{T}(qs, w) \in \mathcal{F}
 $$
 
-Then we say that $w$ is accepted or recognized by the automa.
+Then we say that $w$ is accepted or recognized by the automaton.
 
 We often illustrate with a graph, where each node represents a state, and an edge represents a transition, the label of the edge is the symbol that triggers the transition.
 
@@ -53,13 +53,13 @@ graph LR
 
 We add a $*$ to denote that the state is an accept state.
 
-If we want this automa to test $001$, we would have the following process (the highted node is the current state), here is the example,
+If we want this automaton to test $001$, we would have the following process (the highted node is the current state), here is the example,
 
 ### Example by Graph
 
 #### Step 1: Start at q0
 
-The automaton begins in the start state q0, and the first symbol of the string is 0.
+The automatonton begins in the start state q0, and the first symbol of the string is 0.
 
 ```mermaid
 graph LR
@@ -74,7 +74,7 @@ graph LR
 
 #### Step 2: Still in q0, next symbol is 0
 
-The automaton is still in q0, and it reads another 0, so it remains in q0.
+The automatonton is still in q0, and it reads another 0, so it remains in q0.
 
 ```mermaid
 graph LR
@@ -89,7 +89,7 @@ graph LR
 
 #### Step 3: Now in q0, next symbol is 1
 
-The automaton now reads 1, so it transitions from q0 to q1 (accept state).
+The automatonton now reads 1, so it transitions from q0 to q1 (accept state).
 
 ```mermaid
 graph LR
@@ -119,7 +119,7 @@ graph LR
 
 ### Example by Table
 
-We can also just look after the table. Based on the same automa, we have,
+We can also just look after the table. Based on the same automaton, we have,
 
 |  | 0 | 1 |
 | --- | --- | --- |
@@ -152,7 +152,7 @@ graph LR
     q3 -->|0,1| q3
 ```
 
-This automa has the exact same function as the automa above. For such simple cases, we can tell by eye. However, for more complex cases, we need a tool to minimize the automa.
+This automaton has the exact same function as the automaton above. For such simple cases, we can tell by eye. However, for more complex cases, we need a tool to minimize the automaton.
 
 We define a pair of states is an equivalent pair if and only if they satisfy all the following conditions,
 

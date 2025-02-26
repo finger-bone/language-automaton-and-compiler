@@ -6,9 +6,9 @@ import rehypeKatex from 'rehype-katex';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
-const repo = "language-automa-and-compiler"
+const repo = "language-automaton-and-compiler"
 const ghName = "finger-bone"
-const title = "Language Automa and Compiler"
+const title = "Language Automaton and Compiler"
 
 const config: Config = {
   title: title,
