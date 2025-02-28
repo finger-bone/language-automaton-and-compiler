@@ -1,0 +1,13 @@
+---
+sidebar_position: 4
+---
+
+# LR Grammar
+
+$LL(1)$ language has good enough properties for us to write a simple parser. However, $LL(1)$ still has too many restrictions and sometimes not expressive enough. An alternative approach would be to use $LR(1)$ grammar, which is left starting, rightmost derivation and look ahead of one symbol. Using $LR(1)$, for any given sequence, we can derivate a leftmost reduction path, thus constructing a parse tree using rightmost derivation.
+
+However, $LR(1)$ is too complex sometimes, we may also use $SLR(1)$, simplified version of $LR(1)$, or $LALR(1)$, which is a combination of $LR(1)$ and $SLR(1)$. We also introduce $LR(0)$.
+
+## Testing a CFG for $LR$
+
+The first steps include eliminating left recursion

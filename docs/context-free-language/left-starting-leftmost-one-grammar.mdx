@@ -4,7 +4,9 @@ sidebar_position: 2
 
 # LL(1) Grammar
 
-Previously, we defined an unambiguous grammar under leftmost derivation as $LL(1)$, the left starting, leftmost derivation grammar with one look ahead. This part, we will focus on how we can test wether a CFG is $LL(1)$.
+For some unambiguous language, there is a way that we can scan the sentence from left to right one by one, and find the only possible derivation based on the next one character (if there exists two, it's ambiguous). This is called an $LL(1)$ grammar. The first $L$ stands for left starting. The second $L$ stands for leftmost derivation. $1$ means that the grammar only need to look ahead of one symbol to know which rule to apply. 
+
+This part, we will focus on how we can test wether a CFG is $LL(1)$, and how we can build a parse tree for an $LL(1)$ language.
 
 ## Testing a CFG for $LL(1)$
 
@@ -407,7 +409,7 @@ $S \rightarrow A$ and $S \rightarrow Ae$ generates overlapping SELECT sets, so t
 
 ## Constructing LL Table
 
-Now we need to create a table based on the FIRST and FOLLOW sets. This will come into handy when we introduce PDA in the next section.
+Now we need to create a table based on the FIRST and FOLLOW sets. This table can tell us what rule we should use to derive a sequence.
 
 The table has row indices of every non-terminal, and column indices of every terminals. We note this table as, $\mathrm{LLTb}(A, a)$.
 
@@ -462,6 +464,8 @@ If there exists a cell that has more than one rule, then the grammar is not $LL(
 
 :::
 
+## LL(1) Derivation
+
 LL table tells us, if we want a sequence $x$, how we should derive it.
 
 1. We append $\sout{S}$ to $x$, then, we have a pointer at $0$, call it $i$. Now we have the intermediate sentence $m$. Initially, $m = S$.
@@ -496,3 +500,7 @@ So the leftmost derivation to get $fbb$ is,
 $$
 S \Rightarrow_{lm} A \Rightarrow_{lm} fA' \Rightarrow_{lm} fbA' \Rightarrow_{lm} fbb
 $$
+
+Now we have the leftmost derivation, we can get the parse tree. Later, we will see how the parse tree of a programming language $LL(1)$ can be converted to intermediate representation.
+
+However, $LL(1)$ has it's intrinsic flaw- that it can't represent some languages. The next chapter, we will introduce $LR(1)$, which is more powerful than $LL(1)$.
