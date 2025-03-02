@@ -8,6 +8,118 @@ $LL(1)$ language has good enough properties for us to write a simple parser. How
 
 However, $LR(1)$ is too complex sometimes, we may also use $SLR(1)$, simplified version of $LR(1)$, or $LALR(1)$, which is a combination of $LR(1)$ and $SLR(1)$. We also introduce $LR(0)$.
 
-## Testing a CFG for $LR$
+## LR Parser
 
-The first steps include eliminating left recursion
+LR Parse is a simplified, and in a sense, reversed PDA that has only one state. All CFG can be accepted by a single-node PDA.
+
+:::info
+
+In the last section, when converting from CFG to PDA, we constructed a single node PDA that can accept all CFG.
+
+:::
+
+:::tip
+
+When constructing PDA from CFG, we see that one-state PDA has the same expressive power as multiple-states. This is true with empty-stack-equals-acceptance. For accept state set, we need two states, one for the starting, one for the end, so that we can have the same expressive power.
+
+Two states with accept state set basically have an extra rule that when the stack is empty, go to the accept state.
+
+:::
+
+LR parser is based on deduction. It has four possible actions,
+
+- Move to the next input symbol, and put it into its stack.
+- Pop a few elements from the stack, deduce it into a single non-terminal, then put the non-terminal into the stack.
+- If there only left start symbol in the stack and the inputs are exhausted, accept.
+- The inputs have exhausted but there are more signs in the stack other than the start symbol, and the machine can not do any more deduction, reject.
+
+This basically is a PDA that walks backward from the end. But in another sense, similar to what we learnt back in the left linear grammar, this walking-backward can be converted into a normal PDA by tweaking the rules.
+
+Nonetheless, we will not focus on how LR parser works as a PDA. It's not the focus.
+
+Now, we have only one issue- how can we define which action the parser should take? Accept and reject are easy to judge, but when should a deduction or a move happen?
+
+## Operator Precedence Grammar
+
+OPG is a grammar that, besides what common grammar possesses, it also has a relation of total order, that for any two terminals, $a, b \in \mathcal{V}$, one of, $a \equiv b$, $a \not < b$, or $a \not < b$ exists.
+
+:::tip
+
+$\not <$ is just $\geq$. But it's easier for us to describe and think written as $\not <$. Same for the other symbol. 
+
+:::
+
+We define the order as, (for grammar that doesn't produce $\lambda$),
+
+- $a \equiv b$ if and only if there exists rules like $A \rightarrow \ldots ab \ldots$ or $A \rightarrow \ldots aBb \ldots$.
+- $a \not < b$ if and only if there exists $A \rightarrow \ldots aB \ldots$ and $B \Rightarrow^+ b \ldots$ or $B \Rightarrow^+ Cb \ldots$.
+- $a \not > b$ if and only if there exists $A \rightarrow \ldots Bb \ldots$ and $B \Rightarrow^+ \ldots a$ or $B \Rightarrow^+ \ldots aC$.
+
+:::tip
+
+A bit hard to understand. This order is actually the order of reduction. If we have,
+
+$$
+S \rightarrow Bb \\
+B \rightarrow aC \\
+C \rightarrow c
+$$
+
+For any deduction, the $a$ is guaranteed to disappear into non-terminals after $b$ does, so that $a \not > b$.
+
+For example, consider deducting the string $acb$,
+
+$$
+acb \Leftarrow aCb \\
+\Leftarrow Bb \\
+\Leftarrow S
+$$
+
+$a$ always disappear before $b$.
+
+:::
+
+If $a$ and $b$ is never adjacent (ignoring the non-terminals) in any rules, we can assign arbitrary order to them.
+
+If you can define two relations on one pair, then it means that the grammar isn't OPC, you should consider refactoring.
+
+For example, consider the following grammar that yields mathematical expression with only multiplication and addition,
+
+$$
+S \rightarrow E \\
+E \rightarrow E + E \\
+E \rightarrow E * E \\
+E \rightarrow (E) \\
+E \rightarrow 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+$$
+
+Because of,
+
+$$
+E \rightarrow E + E \\
+E \rightarrow E * E \\
+$$
+
+So $+ \not > *$ and $* \not > +$ is valid at the both time, so, it's not OPC.
+
+However, we can rewrite it into,
+
+$$
+S \rightarrow E \\
+E \rightarrow E + T | T \\
+T \rightarrow T * F | F \\
+F → (E) | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+$$
+
+Here, $+$ is always reduced after $*$, and thus $* \not > +$ is valid. Thus, it is an OPC.
+
+## Construct Precedence Table
+
+We can't iterate through every rule to get the precedence. Here is a systematic algorithm.
+
+Define the $\text{FIRSTOP}$ and $\text{LASTOP}$ of a non-terminal $A$. The first being all possible terminals that can be the first terminals of all the sentences derivate from $A$, and the latter is the last. To formulate it formally,
+
+$$
+\text{FIRSTOP}(A) = \{b | A \Rightarrow^+ b \lor A \Rightarrow^ Bb \quad B \in \mathcal{N}, b \in \mathcal{V} \} \\
+\text{LASTOP}(A) = \{b | A \Rightarrow^+ b \lor A \Rightarrow^+ Cb  \quad B \in \mathcal{N}, b \in \mathcal{V}\}
+$$
