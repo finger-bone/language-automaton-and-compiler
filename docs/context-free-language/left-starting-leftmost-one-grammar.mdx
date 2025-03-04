@@ -263,6 +263,14 @@ That is to say, the FOLLOW set of a non-terminal is all the possible terminal sy
 
 Specially, we will always add $\sout{S}$ to the FOLLOW set of $S$. This is a special character denoting the end of the sentence. Because empty input is accepted, $S$ can always have $\sout{S}$ in the FOLLOW set.
 
+Or alternatively, if you don't what to remember such an abrupt rule, you can add the following grammar,
+
+$$
+S' \rightarrow \sout{S}S\sout{S}
+$$
+
+Use $S'$ as the new starting symbol, then everything will play out naturally.
+
 To get the FOLLOW set, more practically, we check every rule.
 
 If it's in form of,
@@ -376,7 +384,8 @@ $$
 \text{SELECT}(S \rightarrow Ae) = \text{FIRST}(A) = \{f, a\} \\
 \text{SELECT}(A \rightarrow fA') = \text{FIRST}(fA') = \{f\} \\
 \text{SELECT}(A \rightarrow aA') = \text{FIRST}(aA') = \{a\} \\
-\text{SELECT}(A' \rightarrow bA') = \text{FIRST}(bA') + \text{FOLLOW}(A') = \{b, e, \sout{S}\}
+\text{SELECT}(A' \rightarrow bA') = \text{FIRST}(bA') + \text{FOLLOW}(A') = \{b, e, \sout{S}\} \\
+\text{SELECT}(A' \rightarrow \lambda) = \text{FIRST}(\lambda) = \{\lambda\}
 $$
 
 #### Test for $LL(1)$
