@@ -183,7 +183,9 @@ $$
 A \rightarrow Bw
 $$
 
-So then every symbol in $\text{FIRST}(B)$ should be added to the FIRST set of $A$.
+So then every symbol in $\text{FIRST}(B) - \{\lambda\}$$ should be added to the FIRST set of $A$.
+
+If $B \Rightarrow^* lambda$ and $w \rightarrow^* \lambda$, then we also add $\lambda$ to the FIRST set of $A$.
 
 Sometimes, we also have,
 
@@ -424,6 +426,12 @@ The table has row indices of every non-terminal, and column indices of every ter
 
 - For every $A \rightarrow x$, if $\exist a \in FIRST(x)$, such that $a = 0 @ x$ or $a \in \text{FIRST}(0 @ x)$, then we add $A \rightarrow x$ to the table cell $\mathrm{LLTb}(A, a)$.
 - For every $A \rightarrow x$, if $x = \lambda$ or $\lambda \in \text{FIRST}(x)$, for each $b \in \text{FOLLOW}(A)$, we add $A \rightarrow x$ to the table cell $\mathrm{LLTb}(b, a)$.
+
+:::tip
+
+Do both checks for every rule.
+
+:::
 
 Let's consider rules,
 
