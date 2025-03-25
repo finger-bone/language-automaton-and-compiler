@@ -294,7 +294,7 @@ Then we add all of $\text{FIRST}(C)$ to the FOLLOW set of $B$.
 If it's in form of,
 
 $$
-A \rightarrow zB
+A \rightarrow zB\beta \quad \beta \Rightarrow^* \lambda
 $$
 
 Then we add all of $\text{FOLLOW}(A)$ to the FOLLOW set of $B$.
@@ -302,7 +302,7 @@ Then we add all of $\text{FOLLOW}(A)$ to the FOLLOW set of $B$.
 If,
 
 $$
-A \rightarrow aA
+A \rightarrow aA s\beta \quad \beta \Rightarrow^* \lambda
 $$
 
 We ignore it because it doesn't contribute to the FOLLOW set of $A$.
@@ -347,7 +347,7 @@ $$
 
 Thus, $\text{FOLLOW}(A') = \text{FOLLOW}(A) = \{e, \sout{S} \}$.
 
-#### Calculate the SELECT Set of Every Rule
+### Calculate the SELECT Set of Every Rule
 
 The SELECT set of a rule $A \rightarrow x$ is defined as,
 
